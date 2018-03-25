@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "PrntInfo.h"
 #include "PrintInfo.h"
 
 

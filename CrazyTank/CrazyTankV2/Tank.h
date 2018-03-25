@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Management.h"
 
 class Bullet {
 public:
@@ -26,11 +26,11 @@ public:
 class Tank
 {
 public:
-
+	Move move;
 	char symbol;
-	
+	COORD coord;
 
-	Tank()
-
+	Tank();
+	~Tank();
 };
 
