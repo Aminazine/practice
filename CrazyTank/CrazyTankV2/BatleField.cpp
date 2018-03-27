@@ -3,6 +3,7 @@
 #include "BatleField.h"
 #include "Management.h"
 #include <ctime>
+
 BatleField::BatleField()
 {
 	map = new char*[height];
@@ -12,12 +13,17 @@ BatleField::BatleField()
 			map[i][j] = ' ';
 		}
 	}
-	player.coord.X = width/2;
-	player.coord.Y = height-2;
-	player.symbol = '1';
-	map[player.coord.Y][player.coord.X] = player.symbol;
+	//player.coord.X = width / 2;
+	//player.coord.Y = height - 2;
+	//player.symbol = '1';
+	//map[player.coord.Y][player.coord.X] = player.symbol;
+//	Base setGold();
+	enemy = new Tank[enemyCount];
+	setPlayer();
+	setEnemy();
 	generateWalls();
-	
+	//map base
+
 }
 
 BatleField::~BatleField()
@@ -28,48 +34,72 @@ BatleField::~BatleField()
 	//delete[] map;
 }
 
+void BatleField::printScores()
+{
+}
+
+void BatleField::printLife()
+{
+}
+
 void BatleField::setBoarder()
 {
-	system("cls");
+//	system("cls");
 	for (int i = 0; i < width + 1; i++) {
-		map[0][i] = wallSymbol;
-		//std::cout << wallSymbol;
+		map[0][i] = boarderSymbol;
 	}
 
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			if (j == 0 || j == width - 1 || i == height-1) {
-				//std::cout << wallSymbol;
-				map[i][j] = wallSymbol;
+			if (j == 0 || j == width - 1 || i == height - 1) {
+				map[i][j] = boarderSymbol;
 			}
 		}
 	}
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-				std::cout << map[i][j];
+			std::cout << map[i][j];
 		}
 		std::cout << std::endl;
 	}
-	
+
 }
-//void BatleField::setWall()
+
+//void BatleField::setBase()
 //{
+
 //}
 
-void BatleField::setTank()
+//void BatleField::setBase(Base base, int X, int Y)
+//{
+
+//}
+
+void BatleField::setPlayer()
 {
+	player.coord.X = width / 2;
+	player.coord.Y = height - 2;
+	player.symbol = '1';
+	map[player.coord.Y][player.coord.X] = player.symbol;
 }
 
-void BatleField::setGold()
+void BatleField::setEnemy()
 {
+	for (int i = 0; i < enemyCount; i++) {
+		enemy[i].coord.X = rand() % width;
+		enemy[i].coord.Y = rand() % height;
+		enemy[i].symbol = 'Z';
+		map[enemy[i].coord.Y][enemy[i].coord.X] = enemy[i].symbol;
+	}
 }
+
 void BatleField::clearTank(Tank tank)
 {
 	SetConsoleCursorPosition(h, tank.coord);
 	std::cout << " ";
 	map[tank.coord.Y][tank.coord.X] = ' ';
 }
-void BatleField::printTank(Tank tank,int X,int Y)
+void BatleField::printTank(Tank tank, int X, int Y)
 {
 	COORD coord;
 	coord.X = X;
@@ -78,53 +108,71 @@ void BatleField::printTank(Tank tank,int X,int Y)
 	std::cout << tank.symbol;
 	map[Y][X] = tank.symbol;
 }
+
 void BatleField::generateWalls()
 {
 	// n % p  -   0 ... p-1
 	for (int i = 0; i < 30;) {
-		int X = rand() % 18 + 1;
-		int Y = rand() % 18 + 1;
+		int X = (rand() % 18) + 1;
+		int Y = (rand() % 18) + 1;
 		if (map[Y][X] == ' ') {
-			map[Y][X] = '#';
+			map[Y][X] = wallSymbol;
 			i++;
 		}
 	}
 }
-void BatleField::playerMove() {
-	eMovement direction =  player.move.Control();
-	int X = player.coord.X;
-	int Y = player.coord.Y;
-	if (direction == UP) {
+void BatleField::tankMove(Tank & tank,Direction  dir ) {
+	
+	int X = tank.coord.X;
+	int Y = tank.coord.Y;
+	if (dir == UP) {
 		if (Y > 1 && map[Y - 1][X] == ' ') {
-			clearTank(player);
-			player.coord.Y--;
-			printTank(player,X, Y - 1);
+			clearTank(tank);
+			tank.coord.Y--;
+			printTank(tank, X, Y - 1);
 			return;
 		}
 	}
-	if (direction == DOWN) {
+	if (dir == DOWN) {
 		if (Y < height - 1 && map[Y + 1][X] == ' ') {
-			clearTank(player);
-			player.coord.Y++;
-			printTank(player, X, Y + 1);
+			clearTank(tank);
+			tank.coord.Y++;
+			printTank(tank, X, Y + 1);
 			return;
 		}
 	}
-	if (direction == LEFT) {
+	if (dir == LEFT) {
 		if (X > 1 && map[Y][X - 1] == ' ') {
-			clearTank(player);
-			player.coord.X--;
-			printTank(player, X-1, Y);
+			clearTank(tank);
+			tank.coord.X--;
+			printTank(tank, X - 1, Y);
 			return;
 		}
 	}
-	if (direction == RIGHT) {
-		if (X < width - 1 && map[Y][X+1] == ' ') {
-			clearTank(player);
-			player.coord.X++;
-			printTank(player, X+1, Y);
+	if (dir == RIGHT) {
+		if (X < width - 1 && map[Y][X + 1] == ' ') {
+			clearTank(tank);
+			tank.coord.X++;
+			printTank(tank, X + 1, Y);
 			return;
 		}
 	}
 
+}
+
+void BatleField::enemyMove() {
+	int n;
+	while (true) {
+		n = rand() % enemyCount;
+		if (enemy[n].life != 0)break;
+	}
+	int m = rand() % 4 + 1;
+	Direction dir = (Direction)m;
+	tankMove(enemy[n], dir);
+}
+
+void BatleField::playerMove()
+{
+	Direction dir = player.move.control();
+	tankMove(player, dir);
 }

@@ -148,9 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BatleField.h" />
-    <ClInclude Include="MainField.h" />
     <ClInclude Include="Management.h" />
-    <ClInclude Include="PrintInfo.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="targetver.h" />
@@ -158,9 +156,7 @@
   <ItemGroup>
     <ClCompile Include="BatleField.cpp" />
     <ClCompile Include="CrazyTankV2.cpp" />
-    <ClCompile Include="MainField.cpp" />
     <ClCompile Include="Management.cpp" />
-    <ClCompile Include="PrintInfo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
