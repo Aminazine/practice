@@ -4,6 +4,7 @@
 #include "Management.h"
 #include <ctime>
 
+
 BatleField::BatleField()
 {
 	map = new char*[height];
@@ -13,16 +14,16 @@ BatleField::BatleField()
 			map[i][j] = ' ';
 		}
 	}
-	//player.coord.X = width / 2;
-	//player.coord.Y = height - 2;
-	//player.symbol = '1';
-	//map[player.coord.Y][player.coord.X] = player.symbol;
-//	Base setGold();
+	
+	gold.coord.X = width / 2;
+	gold.coord.Y = height - 2;
+	gold.symbol = '*';
+	map[gold.coord.Y][gold.coord.X] = gold.symbol;
+
 	enemy = new Tank[enemyCount];
 	setPlayer();
 	setEnemy();
 	generateWalls();
-	//map base
 
 }
 
@@ -65,19 +66,18 @@ void BatleField::setBoarder()
 
 }
 
-//void BatleField::setBase()
+//void BatleField::setGold()
 //{
-
+//	gold.coord.X = width / 2;
+//	gold.coord.Y = height - 2;
+//	gold.symbol = '*';
+//	map[gold.coord.Y][gold.coord.X] = gold.symbol;
 //}
 
-//void BatleField::setBase(Base base, int X, int Y)
-//{
-
-//}
 
 void BatleField::setPlayer()
 {
-	player.coord.X = width / 2;
+	player.coord.X = (width / 2) - 3;
 	player.coord.Y = height - 2;
 	player.symbol = '1';
 	map[player.coord.Y][player.coord.X] = player.symbol;
@@ -121,6 +121,7 @@ void BatleField::generateWalls()
 		}
 	}
 }
+
 void BatleField::tankMove(Tank & tank,Direction  dir ) {
 	
 	int X = tank.coord.X;

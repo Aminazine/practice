@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="BatleField.h" />
     <ClInclude Include="Management.h" />
     <ClInclude Include="stdafx.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Base.cpp" />
     <ClCompile Include="BatleField.cpp" />
     <ClCompile Include="CrazyTankV2.cpp" />
     <ClCompile Include="Management.cpp" />

@@ -1,5 +1,6 @@
 #pragma once
 #include "Tank.h"
+#include "Base.h"
 
 
 
@@ -12,6 +13,7 @@ private:
 	char boarderSymbol = '@';
 	char wallSymbol = '#';
 	char ** map;
+	Base gold;
 	Tank player;
 	Tank * enemy;
 	int enemyCount = 5;
@@ -23,7 +25,6 @@ public:
 	void printScores();
 	void printLife();
 	void setBoarder();
-//	void setBase(Base base, int X, int Y);
 	void setPlayer();
 	void setEnemy();
 	void tankMove(Tank & tank, Direction  dir);
@@ -32,5 +33,7 @@ public:
 	void clearTank(Tank tank);
 	void printTank(Tank tank, int X, int Y);
 	void generateWalls();
+
+
 	
 };
