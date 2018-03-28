@@ -14,13 +14,10 @@ BatleField::BatleField()
 			map[i][j] = ' ';
 		}
 	}
-	
-	gold.coord.X = width / 2;
-	gold.coord.Y = height - 2;
-	gold.symbol = '*';
-	map[gold.coord.Y][gold.coord.X] = gold.symbol;
 
 	enemy = new Tank[enemyCount];
+	setGold();
+	setBase();
 	setPlayer();
 	setEnemy();
 	generateWalls();
@@ -45,7 +42,7 @@ void BatleField::printLife()
 
 void BatleField::setBoarder()
 {
-//	system("cls");
+	system("cls");
 	for (int i = 0; i < width + 1; i++) {
 		map[0][i] = boarderSymbol;
 	}
@@ -66,14 +63,22 @@ void BatleField::setBoarder()
 
 }
 
-//void BatleField::setGold()
-//{
-//	gold.coord.X = width / 2;
-//	gold.coord.Y = height - 2;
-//	gold.symbol = '*';
-//	map[gold.coord.Y][gold.coord.X] = gold.symbol;
-//}
+void BatleField::setBase()
+{
+	map[17][9] = baseSymbol;
+	map[17][10] = baseSymbol;
+	map[17][11] = baseSymbol;
+	map[18][9] = baseSymbol;
+	map[18][11] = baseSymbol;
+}
 
+void BatleField::setGold()
+{
+	gold.coord.X = width / 2;
+	gold.coord.Y = height - 2;
+	gold.symbol = '*';
+	map[gold.coord.Y][gold.coord.X] = gold.symbol;
+}
 
 void BatleField::setPlayer()
 {

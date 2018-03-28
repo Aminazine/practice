@@ -10,6 +10,7 @@ private:
 	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 	const int width = 20;
 	const int height = 20;
+	char baseSymbol = '%';
 	char boarderSymbol = '@';
 	char wallSymbol = '#';
 	char ** map;
@@ -25,6 +26,8 @@ public:
 	void printScores();
 	void printLife();
 	void setBoarder();
+	void setBase();
+	void setGold();
 	void setPlayer();
 	void setEnemy();
 	void tankMove(Tank & tank, Direction  dir);

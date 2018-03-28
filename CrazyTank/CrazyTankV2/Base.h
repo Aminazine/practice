@@ -16,7 +16,6 @@ public:
 	char symbol;
 	COORD coord;
 	
-
 	Base();
 	~Base();
 };
