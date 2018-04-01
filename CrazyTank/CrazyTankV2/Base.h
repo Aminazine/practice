@@ -6,7 +6,6 @@ class Gold {
 public:
 	char symbol;
 	COORD coord;
-		
 
 };
 

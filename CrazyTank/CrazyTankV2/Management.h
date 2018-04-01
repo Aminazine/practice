@@ -15,8 +15,34 @@ public:
 
 class Position
 {
+	int x, y;
 public:
-	int X, Y;
+	void SetXY(int tx, int ty) {
+		x = tx;
+		y = ty;
+	}
+	int& GetX() { return x; }
+	int& GetY() { return y; }
+	bool MoveUp() {
+		if (y == 0)return false;
+		y--;
+		return true;
+	}
+	bool MoveDown() {
+		if (y == 49)return false;
+		y++;
+		return true;
+	}
+	bool MoveLeft() {
+		if (x == 0)return false;
+		x--;
+		return true;
+	}
+	bool MoveRight() {
+		if (x == 49)return false;
+		x++;
+		return true;
+	}
 };
 
 
